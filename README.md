@@ -1,0 +1,1 @@
+# smc-in-detail
