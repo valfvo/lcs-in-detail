@@ -3,10 +3,54 @@ function* subsequences(a, b, k, x, out = '') {
         yield out;
     }
 
-    for (let i = a; i < b; ++i) {   
+    for (let i = a; i < b; ++i) {
         yield* subsequences(i+1, b, k-1, x, out + x[i]);
     }
 }
+
+function isSubsequenceAux(z, i, x, j) {
+    if (i == z.length) return true;
+    if (j == x.length) return false;
+
+    if (z[i] == x[j]) {
+        return isSubsequenceAux(z, i + 1, x, j + 1);
+    }
+    else {
+        return isSubsequenceAux(z, i, x, j + 1);
+    }
+}
+
+function isSubsequence(z, x) {
+    return isSubsequenceAux(z, 0, x, 0);
+}
+
+function longestCommunSubsequenceNaive(x, y) {
+    if (y.length < x.length) {
+        const tmp = x;
+        x = y;
+        y = tmp;
+    }
+
+    let z = '';
+    let k = x.length;
+
+    do {
+        l = subsequences(0, x.length, k, x);
+        for (const s of l) {
+            if (isSubsequence(s, y)) {
+                z = s;
+                break;
+            }
+        }
+        --k;
+    } while (z == '' && k >= 0);
+
+    return z;
+}
+
+let u = 'AGCTGA';
+let v = 'CAGATCAGAG';
+console.log(longestCommunSubsequenceNaive(u, v));
 
 // const k = 2;
 // const x = 'ACGT';
@@ -57,12 +101,12 @@ function longestCommunSubsequence(x, y) {
     let j = n;
 
     while (i != 0 && j != 0) {
-        if (x[i - 1] == y[j - 1]) {    
+        if (x[i - 1] == y[j - 1]) {
             z = x[i - 1] + z;
             --i;
             --j;
         } else if (S[i - 1][j] > S[i][j - 1]) {
-            --i;   
+            --i;
         } else {
             --j;
         }
@@ -71,22 +115,29 @@ function longestCommunSubsequence(x, y) {
     return z;
 }
 
-function lcsAux(i, j, z, S) {
-    if (i != 0 && j != 0 &&  S[i][j] == S[i - 1][j - 1] + 1) {
-        lcsAux(i - 1, j - 1, x[i - 1] + z, S);
-    }
-
-    if (i != 0 && j != 0 && S[i][j] == S[i - 1][j]) {
-        lcsAux(i - 1, j, z, S);
-    }
-
-    if (i != 0 && j != 0 && S[i][j] == S[i][j - 1]) {
-        lcsAux(i, j - 1, z, S);
-    }
-
+// x, y : words
+// i, j : indexes
+// z : a longest commun subsequence
+// S : matrix
+// l : all longest commun subsequence
+function lcsAux(x, i, y, j, z, S, l) {
     if (i == 0 || j == 0) {
-        console.log(z);
-        // yield z;
+        if (!l.includes(z)) {
+            l.push(z);
+        }
+        return;
+    }
+
+    if (x[i - 1] == y[j - 1]) {
+        lcsAux(x, i - 1, y, j - 1, x[i - 1] + z, S, l);
+    }
+
+    if (S[i][j] == S[i - 1][j]) {
+        lcsAux(x, i - 1, y, j, z, S, l);
+    }
+
+    if (S[i][j] == S[i][j - 1]) {
+        lcsAux(x, i, y, j - 1, z, S, l);
     }
 }
 
@@ -94,13 +145,14 @@ function longestCommunSubsequences(x, y) {
     const m = x.length;
     const n = y.length;
 
+    let l = [];
+
     let S = lcsMatrix(x, y);
-    lcsAux(m, n, '', S);
-    // yield* lcsAux(m, n, '', S);
+    lcsAux(x, m, y, n, '', S, l);
+
+    return l;
 }
 
 let x = 'AGCTGA';
 let y = 'CAGATCAGAG';
-// console.log(longestCommunSubsequence(x, y));
-longestCommunSubsequences(x, y);
-// console.log(Array.from(longestCommunSubsequences(x, y)));
+console.log(longestCommunSubsequences(x, y));
