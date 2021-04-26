@@ -7,25 +7,29 @@
     </head>
     <body>
         <div class="page-container">
-            <h1>Longest commun subsequence</h1>
+            <div class="title">
+                <h1>Longest commun subsequence</h1>
+            </div>
     
             <div class="sequences-choice">
-                <div class="sequences">
-                    <div class="sequence-one">
-                        <label for="s1">sequence one</label>
-                        <input type="text" id="s1">
+                <div class="sequences-choice-content">
+                    <div class="sequences">
+                        <div class="sequence sequence-one">
+                            <label for="s1">sequence one</label>
+                            <input type="text" class="s1 text-area">
+                        </div>
+                        <div class="sequence sequence-two">
+                            <label for="s2">sequence two</label>
+                            <input type="text" class="s2 text-area">
+                        </div>
                     </div>
-                    <div class="sequence-two">
-                        <label for="s2">sequence two</label>
-                        <input type="text" id="s2">
+                    <div class="visualize-button-container">
+                        <button type="button" class="visualize-button">visualize</button>
                     </div>
-                </div>
-                <div class="visualize-button-container">
-                    <button type="button" class="visualize-button">visualize</button>
                 </div>
             </div>
     
-            <div class="main-view">
+            <div class="result-view">
                 <div class="naive-view">
                     <h2>Naive</h2>
                     <div class="explanation-button-container">
