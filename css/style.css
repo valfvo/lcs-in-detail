@@ -112,23 +112,12 @@ h1 {
 .result-view {
   position: relative;
   overflow-y: hidden;
-  /* max-width: 1000px; */
   display: flex;
   align-items: center;
-  /* display: grid;
-  grid-template-columns: 75px 1fr 75px; */
-  /* grid-template-rows: 100px 1fr; */
-
   width: 70%;
-  /* height: 95%; */
-  /* height: 70vh; */
-  /* align-self: center; */
-  /* align-self: stretch; */
   justify-self: center;
   z-index: 2;
   background-color: #fefefe;
-  /* background-color: red; */
-  /* border: 1px solid #6C9174; */
   margin-bottom: 30px;
 }
 
@@ -172,7 +161,6 @@ h2 {
   color: #6C9174;
   font-weight: bold;
   font-size: 2em;
-  /* text-align: center; */
   background: none;
   border: none;
   border-radius: 100px;
