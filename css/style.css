@@ -109,24 +109,27 @@ h1 {
   font-weight: 300;
 }
 
-
 .result-view {
   position: relative;
-  max-width: 1000px;
+  overflow-y: hidden;
+  /* max-width: 1000px; */
   display: flex;
   align-items: center;
   /* display: grid;
   grid-template-columns: 75px 1fr 75px; */
   /* grid-template-rows: 100px 1fr; */
 
-  width: 60%;
+  width: 70%;
   /* height: 95%; */
-  height: 70vh;
-  align-self: center;
+  /* height: 70vh; */
+  /* align-self: center; */
+  /* align-self: stretch; */
   justify-self: center;
   z-index: 2;
   background-color: #fefefe;
-  border: 1px solid #6C9174;
+  /* background-color: red; */
+  /* border: 1px solid #6C9174; */
+  margin-bottom: 30px;
 }
 
 h2 {
