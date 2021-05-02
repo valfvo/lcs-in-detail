@@ -8,9 +8,9 @@ html, body {
 .page-container {
   width: 100%;
   height: 100%;
-  background-color: #ECEBE8;/*#EAEAEA;*/
+  background-color: #fefefe;
   display: grid;
-  grid-template-rows: 100px 0 200px 1fr;
+  grid-template-rows: 100px 0 150px 1fr;
   font-family: 'Montserrat';
   font-weight: 200;
 }
@@ -111,17 +111,63 @@ h1 {
 
 
 .result-view {
+  position: relative;
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+
   width: 60%;
   height: 95%;
   align-self: center;
   justify-self: center;
   z-index: 2;
-  background-color: #ECEBE8;
-
+  background-color: #fefefe;
   border: 1px solid #6C9174;
 }
 
 h2 {
   font-size: 2em;
   font-weight: 400;
+}
+
+.slide {
+  display: none;
+}
+
+.result-buttons {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prev, 
+.next {
+  width: 3ch;
+  height: 3ch;
+  cursor: pointer;
+  color: #6C9174;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+  user-select: none;
+  background: none;
+  border: none;
+  border-radius: 100px;
+  transition: 0.4s;
+}
+
+.prev:hover, 
+.next:hover {
+  background-color: #6C9174;
+  color: #fefefe;
+}
+
+.prev {
+  margin-left: 15px;
+}
+
+.next {
+  margin-right: 15px;
 }

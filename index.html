@@ -1,67 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>SMC in detail</title>
-    <link href="css/style.css" rel="stylesheet">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
-    </style>
-    <script src="js/smc.js"></script>
-    <script src="js/anim.js" defer></script>
-  </head>
-  <body>
-    <div class="page-container">
-      <div class="title">
-        <h1>Longest commun subsequence</h1>
-      </div>
+<head>
+  <title>SMC in detail</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <div class="square-anim"></div>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 
-      <div class="sequences-choice">
-        <div class="sequences-choice-content">
-          <div class="sequences">
-            <div class="sequence sequence-one">
-              <label for="s1">sequence one</label>
-              <input type="text" class="s1 text-area">                        
-            </div>
-            <div class="sequence sequence-two">
-              <label for="s2">sequence two</label>
-              <input type="text" class="s2 text-area">
-            </div>
+  <link href="css/style.css" rel="stylesheet">
+
+  <script src="js/smc.js"></script>
+  <script src="js/anim.js" defer></script>
+</head>
+<body>
+  <div class="page-container">
+    <div class="title">
+      <h1>Longest commun subsequence</h1>
+    </div>
+
+    <div class="square-anim"></div>
+
+    <div class="sequences-choice">
+      <div class="sequences-choice-content">
+        <div class="sequences">
+          <div class="sequence sequence-one">
+            <label for="s1">sequence one</label>
+            <input type="text" class="s1 text-area">                        
           </div>
-          <div class="visualize-button-container">
-            <button type="button" class="visualize-button">
-              visualize
-            </button>
+          <div class="sequence sequence-two">
+            <label for="s2">sequence two</label>
+            <input type="text" class="s2 text-area">
           </div>
         </div>
-      </div>
-  
-      <div>
-        <div class="result-view">
-          <div class="naive-view">
-            <h2>Naive</h2>
-            <div class="explanation-button-container">
-              <button type="button" class="explanation-button">
-                explanation
-              </button>
-            </div>
-            <div class="naive-view-content"></div>
-          </div>
-          <div class="dynamic-view">
-            <h2>Dynamic</h2>
-            <div class="explanation-button-container">
-              <button type="button" class="explanation-button">
-                explanation
-              </button>
-            </div>
-            <div class="dynamic-view-content"></div>
-          </div>
-          <div class="next-view-button-container">
-            <button type="button" class="next-view-button">></button>
-          </div>
+        <div class="visualize-button-container">
+          <button type="button" class="visualize-button">
+            visualize
+          </button>
         </div>
       </div>
     </div>
-  </body>
+
+    <div class="result-view">
+      <div class="slide naive-view">
+        <h2>Naive</h2>
+        <div class="explanation-button-container">
+          <button type="button" class="explanation-button">
+            explanation
+          </button>
+        </div>
+        <div class="naive-view-content"></div>
+      </div>
+
+      <div class="slide dynamic-view">
+        <h2>Dynamic</h2>
+        <div class="explanation-button-container">
+          <button type="button" class="explanation-button">
+            explanation
+          </button>
+        </div>
+        <div class="dynamic-view-content"></div>
+      </div>
+
+      <div class="result-buttons">
+        <button type="button" class="prev">&#10094;</button>
+        <button type="button" class="next">&#10095;</button>
+      </div>
+    </div>
+
+    <div class="dots"></div>
+  </div>
+</body>
 </html>
