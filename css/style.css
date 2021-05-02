@@ -115,9 +115,13 @@ h1 {
   max-width: 1000px;
   display: flex;
   align-items: center;
+  /* display: grid;
+  grid-template-columns: 75px 1fr 75px; */
+  /* grid-template-rows: 100px 1fr; */
 
   width: 60%;
-  height: 95%;
+  /* height: 95%; */
+  height: 70vh;
   align-self: center;
   justify-self: center;
   z-index: 2;
@@ -134,40 +138,46 @@ h2 {
   display: none;
 }
 
-.result-buttons {
-  width: 100%;
+.active-slide {
   height: 100%;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  grid-template-areas:
+    "header"
+    "content";
+}
+
+.slide-header {
+  grid-area: header;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.prev, 
-.next {
-  width: 3ch;
+.slide-content {
+  grid-area: content;
+  overflow-y: auto;
+}
+
+.slide-control {
+  display: block;
+  align-self: center;
+  flex: 0 0 3ch;
   height: 3ch;
   cursor: pointer;
+  user-select: none;
   color: #6C9174;
   font-weight: bold;
   font-size: 2em;
-  text-align: center;
-  user-select: none;
+  /* text-align: center; */
   background: none;
   border: none;
   border-radius: 100px;
+  margin: 15px;
   transition: 0.4s;
 }
 
-.prev:hover, 
-.next:hover {
+.slide-control:hover {
   background-color: #6C9174;
   color: #fefefe;
-}
-
-.prev {
-  margin-left: 15px;
-}
-
-.next {
-  margin-right: 15px;
 }
