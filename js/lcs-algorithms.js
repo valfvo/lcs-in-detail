@@ -24,7 +24,7 @@ function isSubsequence(z, x) {
     return isSubsequenceAux(z, 0, x, 0);
 }
 
-function longestCommunSubsequenceNaive(x, y) {
+function lcsNaive(x, y) {
     if (y.length < x.length) {
         const tmp = x;
         x = y;
@@ -48,9 +48,50 @@ function longestCommunSubsequenceNaive(x, y) {
     return z;
 }
 
-let u = 'AGCTGA';
-let v = 'CAGATCAGAG';
-console.log(longestCommunSubsequenceNaive(u, v));
+function lcsNaiveWithTrace(x, y) {
+  let trace = []; 
+
+  if (y.length < x.length) {
+    const tmp = x;
+    x = y;
+    y = tmp;
+  }
+
+  let z = '';
+  let k = x.length;
+  let found = false;
+
+  do {
+    l = subsequences(0, x.length, k, x);
+    trace.push(`Searching a commun ${k}-subsequence...<br>`);
+
+    for (const s of l) {
+      if (isSubsequence(s, y)) {
+        z = s;
+
+        if (z == '') {
+          z = '&epsi;';
+        }
+
+        trace.push(`Found a commun ${k}-subsequence : ${z}<br>`);
+        found = true;
+        break;
+      } 
+    }
+
+    if (!found) {
+      trace.push(`No commun ${k}-subsequence<br>`);
+      --k;
+    }
+    trace.push('<br>');
+  } while (!found && k >= 0);
+
+  return [z, trace];
+}
+
+// let u = 'AGCTGA';
+// let v = 'CAGATCAGAG';
+// console.log(lcsNaive(u, v));
 
 // const k = 2;
 // const x = 'ACGT';
@@ -89,7 +130,7 @@ function lcsLength(x, y) {
     return lcsMatrix(x, y)[m][n];
 }
 
-function longestCommunSubsequence(x, y) {
+function lcsDynamic(x, y) {
     const m = x.length;
     const n = y.length;
 
@@ -153,6 +194,40 @@ function longestCommunSubsequences(x, y) {
     return l;
 }
 
-let x = 'AGCTGA';
-let y = 'CAGATCAGAG';
-console.log(longestCommunSubsequences(x, y));
+// let x = 'AGCTGA';
+// let y = 'CAGATCAGAG';
+// console.log(longestCommunSubsequences(x, y));
+
+// export { lcsNaive };
+
+const visualizeButton = document.querySelector('.visualize-button');
+
+visualizeButton.onclick = () => {
+  const activeSlide = document.querySelector('.active-slide');
+
+  const sequenceOne = document.querySelector('.s1').value;
+  const sequenceTwo = document.querySelector('.s2').value;
+
+  if (sequenceOne === '' || sequenceTwo === '') return;
+
+  let algorithm;
+  switch (activeSlide.dataset.algorithm) {
+    case 'lcs-naive':
+      algorithm = lcsNaiveWithTrace;
+      break;
+    case 'lcs-dynamic':
+      algorithm = lcsDynamic;
+      break;
+    default:
+      break;
+  };
+
+  const [result, trace] = algorithm(sequenceOne, sequenceTwo);
+
+  const traceContent = activeSlide.querySelector('.slide-content');
+  traceContent.innerHTML = trace.join('');
+
+  const resultContent = activeSlide.querySelector('.js-result-content');
+  resultContent.innerHTML = result;
+
+};
