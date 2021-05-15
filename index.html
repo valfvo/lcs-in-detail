@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SMC in detail</title>
+  <title>lcs in detail</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,6 +10,7 @@
 
   <link href="css/style.css" rel="stylesheet">
 
+  <script src="js/slide.js" defer></script>
   <script src="js/lcs-algorithms.js" defer></script>
   <!-- <script src="js/visualize.js" defer></script> -->
 </head>
@@ -42,17 +43,16 @@
     <div class="result-view">
       <button type="button" class="slide-control prev">&#10094;</button>
 
-      <div class="slide naive-view active-slide" data-algorithm="lcs-naive">
+      <div class="slide dynamic-view active-slide" data-algorithm="lcs-dynamic">
         <div class="slide-header">
-          <h2>Naive</h2>
-          <div class="button-container">
+          <h2>Dynamic</h2>
+          <div class="explanation-button-container">
             <button type="button" class="green-button explanation-button">
               explanation
             </button>
           </div>
         </div>
-        <div class="slide-content naive-view-content">
-        </div>
+        <div class="slide-content dynamic-view-content"></div>
         <div class="slide-footer">
           <div class="result">
             <h3 class="slide-h3">Result :</h3>
@@ -65,19 +65,27 @@
         </div>
       </div>
 
-      <!-- <div class="slide dynamic-view">
-        <h2>Dynamic</h2>
-        <div class="explanation-button-container">
-          <button type="button" class="explanation-button">
-            explanation
-          </button>
+      <div class="slide naive-view" data-algorithm="lcs-naive">
+        <div class="slide-header">
+          <h2>Naive</h2>
+          <div class="button-container">
+            <button type="button" class="green-button explanation-button">
+              explanation
+            </button>
+          </div>
         </div>
-        <div class="dynamic-view-content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget aliquam turpis. Sed dignissim augue lectus, vel tempus elit tristique id. Etiam lorem lacus, congue et condimentum non, efficitur nec purus. Sed venenatis tincidunt metus elementum rutrum. Fusce et commodo neque. Aenean vestibulum nisi eu erat placerat tincidunt. Nulla finibus ipsum sed lectus porttitor accumsan. Ut massa ex, scelerisque ut lacus ac, sagittis interdum purus. Morbi congue enim id sodales pellentesque. Sed sodales facilisis enim vitae faucibus. Ut est dolor, tincidunt pharetra justo nec, vulputate fringilla risus. Mauris facilisis sapien vitae cursus porta. Nunc congue sollicitudin auctor. Pellentesque quam risus, feugiat ut nisi quis, condimentum consectetur felis.
-            Vestibulum pharetra est nec purus vulputate aliquet. Duis malesuada fermentum suscipit. Nulla porta pellentesque augue. Proin a venenatis nunc. Proin aliquet vitae arcu sagittis luctus. Sed pellentesque volutpat risus vitae vehicula. Mauris auctor, purus a blandit varius, nulla massa vestibulum neque, at laoreet lorem eros sit amet lectus. In scelerisque nibh in lacus mattis ullamcorper. Praesent dolor neque, tempus eu diam in, bibendum porttitor diam. Morbi sit amet nulla dignissim, accumsan eros quis, commodo erat. Duis tincidunt finibus massa ac pellentesque. Nulla nec sapien massa.
-            Suspendisse in lectus facilisis, mattis mi eget, scelerisque lorem. Vivamus sit amet metus mollis, congue lorem eget, scelerisque urna. Etiam erat arcu, tincidunt eget eros sed, pharetra auctor dui. In ante massa, placerat quis purus eu, pharetra cursus arcu. Mauris feugiat tempor nulla sed eleifend. Phasellus felis justo, tristique sed turpis et, pulvinar posuere risus. Nunc in consequat libero, eu fermentum purus. Phasellus et vehicula nisi. Donec efficitur auctor nisi id vestibulum. Integer vulputate nulla lorem, ultricies vehicula magna blandit in. Suspendisse dictum felis in neque varius, quis pellentesque dolor aliquam. Suspendisse potenti. Duis bibendum, orci vitae euismod pulvinar, metus metus fringilla ex, a tempus lorem neque vel metus.</p>
+        <div class="slide-content naive-view-content"></div>
+        <div class="slide-footer">
+          <div class="result">
+            <h3 class="slide-h3">Result :</h3>
+            <span class="slide-footer-content js-result-content"></span>
+          </div>
+          <div class="time">
+            <h3 class="slide-h3">Time :</h3>
+            <span class="slide-footer-content js-time-content"></span>
+          </div>
         </div>
-      </div> -->
+      </div>
 
       <button type="button" class="slide-control next">&#10095;</button>
     </div>

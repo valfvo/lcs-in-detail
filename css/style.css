@@ -20,7 +20,6 @@ html, body {
   align-items: center;
   justify-content: center;
   background-color: #506852;
-  z-index: 2;
 }
 
 h1 {
@@ -33,7 +32,6 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
 }
 
 .sequences-choice-content {
@@ -100,7 +98,6 @@ h1 {
   align-items: center;
   width: 70%;
   justify-self: center;
-  z-index: 2;
   background-color: #fefefe;
   margin-bottom: 30px;
 }
@@ -185,4 +182,30 @@ h2 {
 .slide-footer-content {
   font-weight: 400;
   font-size: 1.2em;
+}
+
+.dynamic-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.dynamic-table th,
+.dynamic-table td {
+  border: 1px solid black;
+  text-align: center;
+  padding: 5px;
+  width: 2%;
+}
+
+.dynamic-table th {
+  background-color: #ECEBE8;
+}
+
+.colored-cell-0 {
+  background-color: #E3EBB7;
+}
+
+.colored-cell-1 {
+  background-color: #B6CC98;
 }

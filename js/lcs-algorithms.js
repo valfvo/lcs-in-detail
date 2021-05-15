@@ -156,6 +156,66 @@ function lcsDynamic(x, y) {
     return z;
 }
 
+function lcsDynamicWithTrace(x, y) {
+  let trace = [];
+
+  const m = x.length;
+  const n = y.length;
+
+  let S = lcsMatrix(x, y);
+  let z = '';
+
+  let i = m;
+  let j = n;
+
+  let coloredCells = {};
+
+  while (i != 0 && j != 0) {
+    if (x[i - 1] == y[j - 1]) {
+      z = x[i - 1] + z;
+      coloredCells[i + '-' + j] = 1;
+      --i;
+      --j;
+    } else if (S[i - 1][j] > S[i][j - 1]) {
+      coloredCells[i + '-' + j] = 0;
+      --i;
+    } else {
+      coloredCells[i + '-' + j] = 0;
+      --j;
+    }
+  }
+  coloredCells[i + '-' + j] = 0;
+
+  trace.push('<table class="dynamic-table">');
+
+  // y at the top of the table
+  trace.push('<tr><th></th><th></th>'
+    + y.split('').map(letter => '<th>' + letter + '</th>' ).join('')
+    + '</tr>');
+
+  trace.push(...S.map((row, iRow) => {
+    let strRow = '<tr>';
+    // x on the left of the table
+    strRow += '<th>' + (iRow == 0 ? '' : x[iRow - 1]) + '</th>';
+
+    strRow += row.map((e, iColumn) => {
+      const color = coloredCells[iRow + '-' + iColumn];
+      const isColored = color != undefined;
+
+      return '<td ' + (isColored ? `class="colored-cell-${color}"` : '') + '>'
+        + e.toString() + '</td>'
+    }).join('');
+
+    strRow += '</tr>';
+
+    return strRow;
+  }));
+  
+  trace.push('</table>');
+
+  return [z, trace];
+}
+
 // x, y : words
 // i, j : indexes
 // z : a longest commun subsequence
@@ -216,7 +276,7 @@ visualizeButton.onclick = () => {
       algorithm = lcsNaiveWithTrace;
       break;
     case 'lcs-dynamic':
-      algorithm = lcsDynamic;
+      algorithm = lcsDynamicWithTrace;
       break;
     default:
       break;
