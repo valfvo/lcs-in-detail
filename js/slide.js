@@ -33,3 +33,20 @@ next.onclick = () => {
   const newSlide = slides[currentSlideIndex];
   newSlide.classList.add('active-slide');
 };
+
+for (const slide of slides) {
+  const explanationButton = slide.querySelector('.explanation-button');
+  const popup = slide.querySelector('.popup');
+
+  explanationButton.onclick = () => {
+    popup.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+
+  popup.onclick = (e) => {
+    if (e.target == popup) {
+      popup.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  };
+}

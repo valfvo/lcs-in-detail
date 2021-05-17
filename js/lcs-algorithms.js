@@ -1,23 +1,23 @@
 function* subsequences(a, b, k, x, out = '') {
-    if (k == 0) {
-        yield out;
-    }
+  if (k == 0) {
+    yield out;
+  }
 
-    for (let i = a; i < b; ++i) {
-        yield* subsequences(i+1, b, k-1, x, out + x[i]);
-    }
+  for (let i = a; i < b; ++i) {
+    yield* subsequences(i+1, b, k-1, x, out + x[i]);
+  }
 }
 
 function isSubsequenceAux(z, i, x, j) {
-    if (i == z.length) return true;
-    if (j == x.length) return false;
+  if (i == z.length) return true;
+  if (j == x.length) return false;
 
-    if (z[i] == x[j]) {
-        return isSubsequenceAux(z, i + 1, x, j + 1);
-    }
-    else {
-        return isSubsequenceAux(z, i, x, j + 1);
-    }
+  if (z[i] == x[j]) {
+    return isSubsequenceAux(z, i + 1, x, j + 1);
+  }
+  else {
+    return isSubsequenceAux(z, i, x, j + 1);
+  }
 }
 
 function isSubsequence(z, x) {
@@ -25,30 +25,32 @@ function isSubsequence(z, x) {
 }
 
 function lcsNaive(x, y) {
-    if (y.length < x.length) {
-        const tmp = x;
-        x = y;
-        y = tmp;
+  if (y.length < x.length) {
+    const tmp = x;
+    x = y;
+    y = tmp;
+  }
+
+  let z = '';
+  let k = x.length;
+
+  do {
+    const l = subsequences(0, x.length, k, x);
+    for (const s of l) {
+      if (isSubsequence(s, y)) {
+        z = s;
+        break;
+      }
     }
+    --k;
+  } while (z == '' && k >= 0);
 
-    let z = '';
-    let k = x.length;
-
-    do {
-        l = subsequences(0, x.length, k, x);
-        for (const s of l) {
-            if (isSubsequence(s, y)) {
-                z = s;
-                break;
-            }
-        }
-        --k;
-    } while (z == '' && k >= 0);
-
-    return z;
+  return z;
 }
 
 function lcsNaiveWithTrace(x, y) {
+  const startTime = performance.now();
+
   let trace = []; 
 
   if (y.length < x.length) {
@@ -62,7 +64,7 @@ function lcsNaiveWithTrace(x, y) {
   let found = false;
 
   do {
-    l = subsequences(0, x.length, k, x);
+    const l = subsequences(0, x.length, k, x);
     trace.push(`Searching a commun ${k}-subsequence...<br>`);
 
     for (const s of l) {
@@ -85,8 +87,11 @@ function lcsNaiveWithTrace(x, y) {
     }
     trace.push('<br>');
   } while (!found && k >= 0);
+  
+  const endTime = performance.now();
+  const elapsedTime = endTime - startTime;
 
-  return [z, trace];
+  return [z, elapsedTime, trace];
 }
 
 // let u = 'AGCTGA';
@@ -99,64 +104,66 @@ function lcsNaiveWithTrace(x, y) {
 // console.log(l);
 
 function lcsMatrix(x, y) {
-    const m = x.length;
-    const n = y.length;
-    let S = [];
+  const m = x.length;
+  const n = y.length;
+  let S = [];
 
-    for (let i = 0; i <= m; ++i) {
-        S[i] = [];
-        S[i][0] = 0;
+  for (let i = 0; i <= m; ++i) {
+    S[i] = [];
+    S[i][0] = 0;
+  }
+
+  for (let j = 1; j <= n; ++j) {
+    S[0][j] = 0;
+    for (let i = 1; i <= m; ++i) {
+      if (x[i - 1] == y[j - 1]) {
+        S[i][j] = S[i - 1][j - 1] + 1;
+      }
+      else {
+        S[i][j] = Math.max(S[i - 1][j], S[i][j - 1]);
+      }
     }
+  }
 
-    for (let j = 1; j <= n; ++j) {
-        S[0][j] = 0;
-        for (let i = 1; i <= m; ++i) {
-            if (x[i - 1] == y[j - 1]) {
-                S[i][j] = S[i - 1][j - 1] + 1;
-            }
-            else {
-                S[i][j] = Math.max(S[i - 1][j], S[i][j - 1]);
-            }
-        }
-    }
-
-    return S;
+  return S;
 }
 
 function lcsLength(x, y) {
-    const m = x.length;
-    const n = y.length;
+  const m = x.length;
+  const n = y.length;
 
-    return lcsMatrix(x, y)[m][n];
+  return lcsMatrix(x, y)[m][n];
 }
 
 function lcsDynamic(x, y) {
-    const m = x.length;
-    const n = y.length;
+  const m = x.length;
+  const n = y.length;
 
-    let S = lcsMatrix(x, y);
-    console.log(S);
-    let z = '';
+  let S = lcsMatrix(x, y);
+  console.log(S);
+  let z = '';
 
-    let i = m;
-    let j = n;
+  let i = m;
+  let j = n;
 
-    while (i != 0 && j != 0) {
-        if (x[i - 1] == y[j - 1]) {
-            z = x[i - 1] + z;
-            --i;
-            --j;
-        } else if (S[i - 1][j] > S[i][j - 1]) {
-            --i;
-        } else {
-            --j;
-        }
-    } 
+  while (i != 0 && j != 0) {
+    if (x[i - 1] == y[j - 1]) {
+      z = x[i - 1] + z;
+      --i;
+      --j;
+    } else if (S[i - 1][j] > S[i][j - 1]) {
+      --i;
+    } else {
+      --j;
+    }
+  } 
 
-    return z;
+  return z;
 }
 
 function lcsDynamicWithTrace(x, y) {
+  const startTime = performance.now();
+
   let trace = [];
 
   const m = x.length;
@@ -185,7 +192,7 @@ function lcsDynamicWithTrace(x, y) {
     }
   }
   coloredCells[i + '-' + j] = 0;
-
+  
   trace.push('<table class="dynamic-table">');
 
   // y at the top of the table
@@ -213,7 +220,10 @@ function lcsDynamicWithTrace(x, y) {
   
   trace.push('</table>');
 
-  return [z, trace];
+  const endTime = performance.now();
+  const elapsedTime = endTime - startTime;
+
+  return [z, elapsedTime, trace];
 }
 
 // x, y : words
@@ -222,36 +232,36 @@ function lcsDynamicWithTrace(x, y) {
 // S : matrix
 // l : all longest commun subsequence
 function lcsAux(x, i, y, j, z, S, l) {
-    if (i == 0 || j == 0) {
-        if (!l.includes(z)) {
-            l.push(z);
-        }
-        return;
+  if (i == 0 || j == 0) {
+    if (!l.includes(z)) {
+      l.push(z);
     }
+    return;
+  }
 
-    if (x[i - 1] == y[j - 1]) {
-        lcsAux(x, i - 1, y, j - 1, x[i - 1] + z, S, l);
-    }
+  if (x[i - 1] == y[j - 1]) {
+    lcsAux(x, i - 1, y, j - 1, x[i - 1] + z, S, l);
+  }
 
-    if (S[i][j] == S[i - 1][j]) {
-        lcsAux(x, i - 1, y, j, z, S, l);
-    }
+  if (S[i][j] == S[i - 1][j]) {
+    lcsAux(x, i - 1, y, j, z, S, l);
+  }
 
-    if (S[i][j] == S[i][j - 1]) {
-        lcsAux(x, i, y, j - 1, z, S, l);
-    }
+  if (S[i][j] == S[i][j - 1]) {
+    lcsAux(x, i, y, j - 1, z, S, l);
+  }
 }
 
 function longestCommunSubsequences(x, y) {
-    const m = x.length;
-    const n = y.length;
+  const m = x.length;
+  const n = y.length;
 
-    let l = [];
+  let l = [];
 
-    let S = lcsMatrix(x, y);
-    lcsAux(x, m, y, n, '', S, l);
+  let S = lcsMatrix(x, y);
+  lcsAux(x, m, y, n, '', S, l);
 
-    return l;
+  return l;
 }
 
 // let x = 'AGCTGA';
@@ -282,12 +292,18 @@ visualizeButton.onclick = () => {
       break;
   };
 
-  const [result, trace] = algorithm(sequenceOne, sequenceTwo);
+  const [result, time, trace] = algorithm(sequenceOne, sequenceTwo);
 
   const traceContent = activeSlide.querySelector('.slide-content');
   traceContent.innerHTML = trace.join('');
 
+  console.log(trace.join(''));
+
   const resultContent = activeSlide.querySelector('.js-result-content');
   resultContent.innerHTML = result;
+
+  const timeContent = activeSlide.querySelector('.js-time-content');
+  let roundedTime = Math.round((time + Number.EPSILON) * 100) / 100;
+  timeContent.innerHTML = roundedTime + ' ms';
 
 };

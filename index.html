@@ -63,6 +63,34 @@
             <span class="slide-footer-content js-time-content"></span>
           </div>
         </div>
+        <div class="popup">
+          <div class="popup-content">
+            <p>
+              La baignoire est dans le sac.
+            </p>
+
+            <table class="dynamic-table example-table">
+              <tr><th></th><th></th><th>A</th><th>T</th><th>G</th><th>G</th><th>T</th><th>A</th><th>C</th><th>G</th><th>T</th><th>C</th></tr>
+              <tr><th></th><td>0</td><td>0</td><td>0</td><td>0</td><td class="colored-cell-0">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><th>T</th><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-1">1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><th>A</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-1">2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+              <tr><th>C</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-0">2</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+              <tr><th>C</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>2</td><td class="colored-cell-1">3</td><td>3</td><td>3</td><td>4</td></tr>
+              <tr><th>A</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>2</td><td class="colored-cell-0">3</td><td>3</td><td>3</td><td>4</td></tr>
+              <tr><th>T</th><td>0</td><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td class="colored-cell-0">3</td><td>3</td><td>4</td><td>4</td></tr>
+              <tr><th>G</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td class="colored-cell-1">4</td><td class="colored-cell-0">4</td><td>4</td></tr>
+              <tr><th>C</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td class="colored-cell-1">5</td></tr>
+              <tr><th>A</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td class="colored-cell-0">5</td></tr>
+            </table>
+
+            <div class="legend">
+              <span class="match-color legend-color"></span>
+              <span class="legend-text"> : match</span>
+              <span class="indel-color legend-color"></span>
+              <span class="legend-text"> : indel</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="slide naive-view" data-algorithm="lcs-naive">
@@ -83,6 +111,43 @@
           <div class="time">
             <h3 class="slide-h3">Time :</h3>
             <span class="slide-footer-content js-time-content"></span>
+          </div>
+        </div>
+        <div class="popup">
+          <div class="popup-content">
+            <p>Pour deux mots x et y (x >= y), et pour k (égale à la taille de x),
+              <br>
+              tant que k >= 0 faire : on check si un sous mot de taille k de x
+              <br>
+              n'est pas aussi un sous mot de y. Si c'est le cas on le renvoi et 
+              <br>
+              on a fini. Sinon on décremente k. Si k arrive à 0, x et y n'ont pas 
+              <br>
+              de sous-mot commun.
+            </p>
+            <div class="algorithm-code">
+<span class="code-keywords">if</span> (y.length &lt; x.length) {
+  <span class="code-keywords-2">const</span> tmp = x;
+  x = y;
+  y = tmp;
+}
+
+<span class="code-keywords-2">let</span> z = '';
+<span class="code-keywords-2">let</span> k = x.length;
+
+<span class="code-keywords">do</span> {
+  <span class="code-keywords-2">const</span> l = subsequences(0, x.length, k, x);
+  <span class="code-keywords">for</span> (<span class="code-keywords-2">const</span> s of l) {
+    <span class="code-keywords">if</span> (isSubsequence(s, y)) {
+      z = s;
+      <span class="code-keywords">break</span>;
+    }
+  }
+  --k;
+} <span class="code-keywords">while</span> (z == '' && k >= 0);
+
+<span class="code-keywords">return</span> z;
+            </div>
           </div>
         </div>
       </div>

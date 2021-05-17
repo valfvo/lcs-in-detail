@@ -128,7 +128,6 @@ h2 {
 .slide-header {
   grid-area: header;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -185,9 +184,7 @@ h2 {
 }
 
 .dynamic-table {
-  width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
 }
 
 .dynamic-table th,
@@ -207,5 +204,71 @@ h2 {
 }
 
 .colored-cell-1 {
+  background-color: #B6CC98;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 25px;
+  border-radius: 7px;
+}
+
+.algorithm-code {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.code-keywords {
+  color: #ca2bca;
+}
+
+.code-keywords-2 {
+  color: #1148e4;
+}
+
+.example-table th,
+.example-table td {
+  padding: 10px;
+}
+
+.legend {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.legend-color {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 1px solid black;
+}
+
+.legend-text {
+  margin-right: 15px;
+  margin-left: 5px;
+}
+
+.indel-color {
+  background-color: #E3EBB7;
+}
+
+.match-color {
   background-color: #B6CC98;
 }
