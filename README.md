@@ -3,7 +3,7 @@
 Le site est disponible à l'adresse suivante : https://lcs-in-detail.fvo.app/
 
 Instructions :
-- dézoomer si la page si nécessaire
+- dézoomer la page si nécessaire
 - remplir les champs "sequence one" et "sequence two"
 - cliquer sur "visualize"
 - utiliser les flèches pour naviguer d'un algorithme à un autre.
