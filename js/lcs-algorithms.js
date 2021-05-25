@@ -51,7 +51,8 @@ function lcsNaive(x, y) {
 function lcsNaiveWithTrace(x, y) {
   const startTime = performance.now();
 
-  let trace = []; 
+  let trace = [];
+  let traceMsg = '';
 
   if (y.length < x.length) {
     const tmp = x;
@@ -65,7 +66,10 @@ function lcsNaiveWithTrace(x, y) {
 
   do {
     const l = subsequences(0, x.length, k, x);
-    trace.push(`Searching a commun ${k}-subsequence...<br>`);
+
+    traceMsg = `Searching a commun ${k}-subsequence...<br>`;
+    trace.push(traceMsg);
+    postMessage({type: 'trace', trace: traceMsg});
 
     for (const s of l) {
       if (isSubsequence(s, y)) {
@@ -75,17 +79,26 @@ function lcsNaiveWithTrace(x, y) {
           z = '&epsi;';
         }
 
-        trace.push(`Found a commun ${k}-subsequence : ${z}<br>`);
+        traceMsg = `Found a commun ${k}-subsequence : ${z}<br>`;
+        trace.push(traceMsg);
+        postMessage({type: 'trace', trace: traceMsg});
+
         found = true;
         break;
       } 
     }
 
     if (!found) {
-      trace.push(`No commun ${k}-subsequence<br>`);
+      traceMsg = `No commun ${k}-subsequence<br>`;
+      trace.push(traceMsg);
+      postMessage({type: 'trace', trace: traceMsg});
+
       --k;
     }
-    trace.push('<br>');
+
+    traceMsg = '<br>';
+    trace.push(traceMsg);
+    postMessage({type: 'trace', trace: traceMsg});
   } while (!found && k >= 0);
   
   const endTime = performance.now();
@@ -192,7 +205,7 @@ function lcsDynamicWithTrace(x, y) {
     }
   }
   coloredCells[i + '-' + j] = 0;
-  
+
   trace.push('<table class="dynamic-table">');
 
   // y at the top of the table
@@ -267,21 +280,9 @@ function longestCommunSubsequences(x, y) {
 // let x = 'AGCTGA';
 // let y = 'CAGATCAGAG';
 // console.log(longestCommunSubsequences(x, y));
-
-// export { lcsNaive };
-
-const visualizeButton = document.querySelector('.visualize-button');
-
-visualizeButton.onclick = () => {
-  const activeSlide = document.querySelector('.active-slide');
-
-  const sequenceOne = document.querySelector('.s1').value;
-  const sequenceTwo = document.querySelector('.s2').value;
-
-  if (sequenceOne === '' || sequenceTwo === '') return;
-
+onmessage = (e) => {
   let algorithm;
-  switch (activeSlide.dataset.algorithm) {
+  switch (e.data.algorithm) {
     case 'lcs-naive':
       algorithm = lcsNaiveWithTrace;
       break;
@@ -290,20 +291,7 @@ visualizeButton.onclick = () => {
       break;
     default:
       break;
-  };
+  }
 
-  const [result, time, trace] = algorithm(sequenceOne, sequenceTwo);
-
-  const traceContent = activeSlide.querySelector('.slide-content');
-  traceContent.innerHTML = trace.join('');
-
-  console.log(trace.join(''));
-
-  const resultContent = activeSlide.querySelector('.js-result-content');
-  resultContent.innerHTML = result;
-
-  const timeContent = activeSlide.querySelector('.js-time-content');
-  let roundedTime = Math.round((time + Number.EPSILON) * 100) / 100;
-  timeContent.innerHTML = roundedTime + ' ms';
-
+  postMessage(algorithm(e.data.sequenceOne, e.data.sequenceTwo));
 };
