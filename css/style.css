@@ -254,6 +254,7 @@ h2 {
   margin: auto;
   padding: 25px;
   border-radius: 7px;
+  font-size: 1.2em;
 }
 
 .algorithm-code {
@@ -302,4 +303,15 @@ h2 {
   background-color: #B6CC98;
 }
 
+.epsi {
+  font-size: 1.4em;
+}
 
+.dynamic-info {
+  flex-direction: row;
+  align-items: center;
+}
+
+.example-table-container {
+  margin-left: 50px;
+}

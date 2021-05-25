@@ -24,7 +24,19 @@
 
     <div class="popup lcs-info-popup">
       <div class="popup-content">
-        <p>Un sous mot est une baignoire.</p>
+        <h2>Définition d'un sous-mot</h2>
+        <p>
+          Un sous-mot X s'obtient à partir d'un mot Y en envelant des lettres de Y.<br>
+          Par exemple le mot ABA est un sous-mot de CATEBEA, mais BAE n'en est pas un.<br>
+          On ne peut pas changer l'ordre des lettres dans le sous-mot.
+        </p>
+        <p>
+          Un sous-mot X est dit commun à Y et Z si X est sous-mot de Y et de Z.<br>
+          On s'intéresse ici à la recherche d'un plus long sous-mot commun à deux mots.<br>
+          Deux mots peuvent avoir plusieurs plus long sous-mots communs.<br>
+          Par exemple AAB et ABB sont tous deux des plus long sous-mots commun à ABAB et AABB.
+        </p>
+        <p>On notera par la suite le mot vide <span class="epsi">&epsi;</span>, prononcé <em>epsilon</em>.</p>
       </div>
     </div>
 
@@ -72,30 +84,66 @@
           </div>
         </div>
         <div class="popup">
-          <div class="popup-content">
-            <p>
-              
-            </p>
+          <div class="popup-content dynamic-info">
+            <div class="dynamic-info-text">
+              <h2>Algorithme dynamique</h2>
+              <p>
+                Le principe consiste à remplir un tableau à 2 dimensions.<br>
+                On initialise la première ligne et la première colonne avec des 0.<br><br>
+                Vient ensuite le remplissage, qui s'effectue de la manière suivante :<br>
+                pour chaque case (i, j), où i représente la i-ème ligne et j la j-ème colonne,<br>
+                on regarde s'il y a un <em>match</em> (les 2 lettres correspondent).<br>
+                <ul>
+                  <li>S'il y a match, on prend le nombre se trouvant dans la case en haut à gauche (i-1, j-1) et on y ajoute 1.</li>
+                  <li>Sinon on prend le max entre le nombre de la case du dessus (i-1, j) et celui de la case de gauche (i, j-1).</li>
+                </ul>
+              </p>
 
-            <table class="dynamic-table example-table">
-              <tr><th></th><th></th><th>A</th><th>T</th><th>G</th><th>G</th><th>T</th><th>A</th><th>C</th><th>G</th><th>T</th><th>C</th></tr>
-              <tr><th></th><td>0</td><td>0</td><td>0</td><td>0</td><td class="colored-cell-0">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-              <tr><th>T</th><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-1">1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-              <tr><th>A</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-1">2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
-              <tr><th>C</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-0">2</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
-              <tr><th>C</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>2</td><td class="colored-cell-1">3</td><td>3</td><td>3</td><td>4</td></tr>
-              <tr><th>A</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>2</td><td class="colored-cell-0">3</td><td>3</td><td>3</td><td>4</td></tr>
-              <tr><th>T</th><td>0</td><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td class="colored-cell-0">3</td><td>3</td><td>4</td><td>4</td></tr>
-              <tr><th>G</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td class="colored-cell-1">4</td><td class="colored-cell-0">4</td><td>4</td></tr>
-              <tr><th>C</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td class="colored-cell-1">5</td></tr>
-              <tr><th>A</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td class="colored-cell-0">5</td></tr>
-            </table>
+              <h3>Backtracking</h3>
+              <p>
+                Une fois le tableau rempli, on effectue un <em>backtracking</em> pour retrouver le plus long sous-mot commun.<br>
+                Il suffit de partir de la case en bas à droite et de remonter jusqu'à un bord à gauche ou en haut du tableau.<br>
+                Le but est de faire le chemin en sens inverse du remplissage :
+                <ul>
+                  <li>S'il y a match, on colore la case en vert foncé et on se déplace vers la case en haut à gauche.</li>
+                  <li>
+                    Sinon on la colore en vert clair et on se déplace vers la case (de gauche ou du dessus)<br>
+                    avec le plus grand nombre.
+                  </li>
+                </ul>
+                Pour terminer, le plus long sous-mot commun est formé de la concaténation des lettres<br>
+                correspondantes aux cases vert foncé (lecture de gauche à droite).<br>
+                Dans l'exemple montré à droite, on a les lettres T, A, C, G, C qui forment bien TACGC,<br>
+                le plus long sous mot commun aux deux mots.
+              </p>
 
-            <div class="legend">
-              <span class="match-color legend-color"></span>
-              <span class="legend-text"> : match</span>
-              <span class="indel-color legend-color"></span>
-              <span class="legend-text"> : indel</span>
+              <h3>Complexité</h3>
+              <p>
+                Complexité en temps et en espace : <em>O(m &times; n)</em><br>
+              </p>
+            </div>
+
+            <div class="example-table-container">
+              <table class="dynamic-table example-table">
+                <tr><th></th><th></th><th>A</th><th>T</th><th>G</th><th>G</th><th>T</th><th>A</th><th>C</th><th>G</th><th>T</th><th>C</th></tr>
+                <tr><th></th><td>0</td><td>0</td><td>0</td><td>0</td><td class="colored-cell-0">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                <tr><th>T</th><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-1">1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                <tr><th>A</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-1">2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+                <tr><th>C</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="colored-cell-0">2</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+                <tr><th>C</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>2</td><td class="colored-cell-1">3</td><td>3</td><td>3</td><td>4</td></tr>
+                <tr><th>A</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>2</td><td class="colored-cell-0">3</td><td>3</td><td>3</td><td>4</td></tr>
+                <tr><th>T</th><td>0</td><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td class="colored-cell-0">3</td><td>3</td><td>4</td><td>4</td></tr>
+                <tr><th>G</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td class="colored-cell-1">4</td><td class="colored-cell-0">4</td><td>4</td></tr>
+                <tr><th>C</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td class="colored-cell-1">5</td></tr>
+                <tr><th>A</th><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td><td>3</td><td>4</td><td>4</td><td>4</td><td>4</td><td class="colored-cell-0">5</td></tr>
+              </table>
+
+              <div class="legend">
+                <span class="match-color legend-color"></span>
+                <span class="legend-text"> : match</span>
+                <span class="indel-color legend-color"></span>
+                <span class="legend-text"> : indel</span>
+              </div>
             </div>
           </div>
         </div>
@@ -123,43 +171,28 @@
         </div>
         <div class="popup">
           <div class="popup-content">
-            <p>Pour deux mots x et y (x >= y), et pour k (égale à la taille de x),
-              <br>
-              tant que k >= 0 faire : on check si un sous mot de taille k de x
-              <br>
-              n'est pas aussi un sous mot de y. Si c'est le cas on le renvoi et 
-              <br>
-              on a fini. Sinon on décremente k. Si k arrive à 0, x et y n'ont pas 
-              <br>
-              de sous-mot commun.
+            <h2>Algorithme naïf</h2>
+            <p>
+              Pour connaître un des plus long sous-mots commun à deux mots X et Y,<br>
+              on commence par noter n la taille de X et m la taille de Y.<br>
+              On suppose n &#60; m (on échange simplement X et Y si n &#62; m).<br><br>
+
+              On prend ensuite k le minimum entre n et m, et on essaye de trouver un sous-mot de X de longueur k.<br>
+              Si on en trouve un on regarde s'il est aussi sous-mot de Y.<br>
+              Si aucun sous-mot commun de taille k n'est trouvé, on essaye avec k-1, puis k-2, etc...<br><br>
+
+              L'algorithme s'arrête quand un sous-mot de taille k est trouvé ou quand k = 0.<br>
+              Dans ce dernier cas, le sous-mot est <em>epsilon</em>, le mot vide.
             </p>
-            <div class="algorithm-code">
-<span class="code-keywords">if</span> (y.length &lt; x.length) {
-  <span class="code-keywords-2">const</span> tmp = x;
-  x = y;
-  y = tmp;
-}
 
-<span class="code-keywords-2">let</span> z = '';
-<span class="code-keywords-2">let</span> k = x.length;
-
-<span class="code-keywords">do</span> {
-  <span class="code-keywords-2">const</span> l = subsequences(0, x.length, k, x);
-  <span class="code-keywords">for</span> (<span class="code-keywords-2">const</span> s of l) {
-    <span class="code-keywords">if</span> (isSubsequence(s, y)) {
-      z = s;
-      <span class="code-keywords">break</span>;
-    }
-  }
-  --k;
-} <span class="code-keywords">while</span> (z == '' && k >= 0);
-
-<span class="code-keywords">return</span> z;
+            <h3>Complexité</h3>
+            <div>
+              Complexité en temps : <em>O(2<sup>n</sup>)</em><br>
+              Complexité en espace : <em>O(n + m)</em><br>
             </div>
           </div>
         </div>
       </div>
-
       <button type="button" class="slide-control next">&#10095;</button>
     </div>
   </div>
