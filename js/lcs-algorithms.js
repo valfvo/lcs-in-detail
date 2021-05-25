@@ -236,6 +236,10 @@ function lcsDynamicWithTrace(x, y) {
   const endTime = performance.now();
   const elapsedTime = endTime - startTime;
 
+  if (z == '') {
+    z = '&epsi;';
+  }
+
   return [z, elapsedTime, trace];
 }
 
@@ -293,5 +297,11 @@ onmessage = (e) => {
       break;
   }
 
-  postMessage(algorithm(e.data.sequenceOne, e.data.sequenceTwo));
+  const [result, time, trace] = algorithm(e.data.sequenceOne, e.data.sequenceTwo);
+  postMessage({
+    algorithm: e.data.algorithm,
+    result: result,
+    time: time,
+    trace: trace
+  });
 };

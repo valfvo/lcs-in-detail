@@ -11,6 +11,7 @@
   <link href="css/style.css" rel="stylesheet">
 
   <script src="js/slide.js" defer></script>
+  <script src="js/popup.js" defer></script>
   <script src="js/visualize.js" defer></script>
   <!-- <script src="js/visualize.js" defer></script> -->
 </head>
@@ -18,6 +19,13 @@
   <div class="page-container">
     <div class="title">
       <h1>Longest Commun Subsequence</h1>
+      <div class="lcs-info-button">i</div>
+    </div>
+
+    <div class="popup lcs-info-popup">
+      <div class="popup-content">
+        <p>Un sous mot est une baignoire.</p>
+      </div>
     </div>
 
     <div class="sequences-choice">
@@ -93,7 +101,7 @@
         </div>
       </div>
 
-      <div class="slide naive-view" data-algorithm="lcs-naive">
+      <div class="slide naive-view" data-algorithm="lcs-naive" data-realtime-trace="true">
         <div class="slide-header">
           <h2>Naive</h2>
           <div class="button-container">
@@ -154,8 +162,6 @@
 
       <button type="button" class="slide-control next">&#10095;</button>
     </div>
-
-    <!-- <div class="dots"></div> -->
   </div>
 </body>
 </html>

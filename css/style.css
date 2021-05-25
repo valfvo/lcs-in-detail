@@ -28,6 +28,23 @@ h1 {
   font-weight: 300;
 }
 
+.lcs-info-button {
+  font-size: 2em;
+  color: #506852;
+  font-weight: 500;
+  margin-left: 50px;
+  background-color: #ECEBE8;
+  border-radius: 100px;
+  width: 2ch;
+  height: 2ch;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.lcs-info-button:hover {
+  cursor: pointer;
+}
+
 .sequences-choice {
   display: flex;
   align-items: center;
@@ -133,6 +150,18 @@ h2 {
 
 .slide-header h2 {
   margin-right: 30px;
+}
+
+.in-progress {
+  margin-left: auto;
+  color: #bc4555;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.in-progress-number {
+  font-size: 1.3em;
+  font-family: monospace;
 }
 
 .slide-content {
@@ -272,3 +301,5 @@ h2 {
 .match-color {
   background-color: #B6CC98;
 }
+
+
