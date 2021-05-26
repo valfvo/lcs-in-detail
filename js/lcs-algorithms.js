@@ -1,10 +1,10 @@
 function* subsequences(a, b, k, x, out = '') {
   if (k == 0) {
     yield out;
-  }
-
-  for (let i = a; i < b; ++i) {
-    yield* subsequences(i+1, b, k-1, x, out + x[i]);
+  } else {
+    for (let i = a; i < b - k + 1; ++i) {
+      yield* subsequences(i+1, b, k-1, x, out + x[i]);
+    }
   }
 }
 
